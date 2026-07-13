@@ -303,14 +303,18 @@ class GroupOverviewFigure(MplCanvas):
             self.meanDensAx.imshow(data,
                                    cmap=options['cmap'],
                                    aspect='auto',
-                                   origin='lower')
+                                   origin='lower',
+                                   interpolation='hanning') #fix pixelation
             self.meanDensLogAx.imshow(np.log(1 + data),
                                       cmap=options['cmap'],
                                       aspect='auto',
-                                      origin='lower')
+                                      origin='lower',
+                                      interpolation='hanning') # fix pixelation
 
         self.draw()
-
+        self.meanDensAx.clear() #fix plotting lag
+        self.meanDensLogAx.clear() #fix plotting lag
+        
         t2 = time.time()
         logger.debug('Update time: %.0f ms', (t2 - t1) * 1000)
 
